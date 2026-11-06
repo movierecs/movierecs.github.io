@@ -1,0 +1,31 @@
+/* MovieRecs pages: system fonts only, no trackers, light and dark. */
+:root {
+  --bg: #ffffff; --ink: #111111; --soft: #6b6b6b; --fill: #f1f1f3; --accent: #111111; --on-accent: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #000000; --ink: #f5f5f7; --soft: #a1a1a6; --fill: #1c1c1e; --accent: #f5f5f7; --on-accent: #000000; }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 440px; margin: 0 auto; padding: 56px 24px 40px; }
+.icon { width: 88px; height: 88px; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+h1 { font-size: 32px; line-height: 1.15; letter-spacing: -0.02em; margin: 28px 0 10px; }
+p { margin: 0 0 14px; }
+.soft { color: var(--soft); }
+.button {
+  display: block; width: 100%; padding: 15px 20px; margin: 22px 0 10px; border: 0; border-radius: 999px;
+  background: var(--accent); color: var(--on-accent); font: inherit; font-weight: 600; text-align: center;
+  text-decoration: none; cursor: pointer;
+}
+.button.quiet { background: var(--fill); color: var(--ink); margin-top: 0; }
+.steps { background: var(--fill); border-radius: 18px; padding: 16px 18px; margin-top: 24px; }
+.steps ol { margin: 0; padding-left: 20px; }
+.steps li { margin: 6px 0; }
+.code { font: 600 17px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .08em; }
+.note { font-size: 14px; }
+footer { margin-top: 40px; font-size: 14px; }
+footer a { color: var(--soft); margin-right: 14px; }

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join me on MovieRecs</title>
+  <meta name="description" content="A friend invited you to MovieRecs: every movie and show your friends tell you to watch, in one place.">
+  <meta property="og:title" content="Join me on MovieRecs">
+  <meta property="og:description" content="Every rec, all in one place. See what your friends loved.">
+  <meta property="og:image" content="https://movierecs.github.io/icon.png">
+  <link rel="icon" href="/icon.png">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/store.js"></script>
+</head>
+<body>
+<main>
+  <img class="icon" src="/icon.png" alt="MovieRecs">
+  <h1 id="title">A friend invited you to MovieRecs</h1>
+  <p class="soft">Every movie and show your friends tell you to watch, in one place. See what they loved, and pick something for tonight.</p>
+
+  <a class="button" id="get" href="https://testflight.apple.com/join/E2WVG1ms">Get MovieRecs</a>
+  <a class="button quiet" id="open" href="movierecs://invite">I have it: open MovieRecs</a>
+  <p class="note soft" id="beta" hidden>MovieRecs is in beta, so it installs through Apple's free TestFlight app. Tap Get MovieRecs, install TestFlight if it asks, then install MovieRecs.</p>
+
+  <div class="steps" id="steps">
+    <ol>
+      <li>Get MovieRecs and sign in.</li>
+      <li>Come back and tap this link again, or tap <b>Paste Invite</b> in the app.</li>
+      <li id="connect">You're connected.</li>
+    </ol>
+    <p class="note soft" id="codeline" style="margin:10px 0 0" hidden>Friend code: <span class="code" id="code"></span></p>
+  </div>
+
+  <footer>
+    <a href="https://docs.google.com/document/d/1jp_otFi0TlacX6qiRmVMepqJ-dBg207D10fMoZKz1nU/mobilebasic">Privacy</a>
+    <a href="https://docs.google.com/document/d/1AxXFMVeH6hXzgQ1cv4XlofenSDWDSZbbNClNrDSxwdQ/mobilebasic">Terms</a>
+    <a href="https://docs.google.com/document/d/1WbQwz0FFGNocsxlgWkvwqYG-txHmAqKeUHHIVhDa9Wk/mobilebasic">Help</a>
+  </footer>
+</main>
+<script>
+  // The invite: ?c=K7QF2&u=blanimal. Only well-formed values are used, and only as text.
+  var params = new URLSearchParams(location.search);
+  var code = (params.get("c") || "").toUpperCase();
+  if (!/^[A-HJKMNP-Z2-9]{5}$/.test(code)) code = "";
+  var user = params.get("u") || "";
+  if (!/^[a-z0-9._]{1,30}$/i.test(user)) user = "";
+
+  if (user) {
+    document.getElementById("title").textContent = "@" + user + " invited you to MovieRecs";
+    document.getElementById("connect").textContent = "You and @" + user + " are connected.";
+  }
+  if (code) {
+    document.getElementById("code").textContent = code;
+    document.getElementById("codeline").hidden = false;
+    var query = "?c=" + code + (user ? "&u=" + encodeURIComponent(user) : "");
+    document.getElementById("open").href = "movierecs://invite" + query;
+  }
+
+  // Getting the app copies the invite, so "Paste Invite" can connect you after signing in.
+  var get = document.getElementById("get");
+  get.addEventListener("click", function (event) {
+    if (!code || !navigator.clipboard) return;
+    event.preventDefault();
+    var go = function () { location.href = get.href; };
+    navigator.clipboard.writeText("MovieRecs invite: " + location.href).then(go, go);
+  });
+
+  MovieRecsStore.whenKnown(function (store) {
+    get.href = store.url;
+    document.getElementById("beta").hidden = store.isLive;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["AN259MPM6D.com.blainebassett.MovieRecs"],
+        "components": [
+          { "/": "/i", "comment": "Friend invites" },
+          { "/": "/i/*", "comment": "Friend invites" }
+        ]
+      }
+    ]
+  }
+}

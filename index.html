@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MovieRecs</title>
+  <meta name="description" content="Every movie and show your friends tell you to watch, in one place.">
+  <link rel="icon" href="/icon.png">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/store.js"></script>
+</head>
+<body>
+<main>
+  <img class="icon" src="/icon.png" alt="MovieRecs">
+  <h1>What are you watching tonight?</h1>
+  <p class="soft">Every rec, all in one place. MovieRecs keeps the movies and shows your friends tell you to watch, with who said it and why, and picks something for tonight.</p>
+  <a class="button" id="get" href="https://testflight.apple.com/join/E2WVG1ms">Get MovieRecs</a>
+  <p class="note soft" id="beta" hidden>In beta: it installs through Apple's free TestFlight app.</p>
+  <footer>
+    <a href="https://docs.google.com/document/d/1jp_otFi0TlacX6qiRmVMepqJ-dBg207D10fMoZKz1nU/mobilebasic">Privacy</a>
+    <a href="https://docs.google.com/document/d/1AxXFMVeH6hXzgQ1cv4XlofenSDWDSZbbNClNrDSxwdQ/mobilebasic">Terms</a>
+    <a href="https://docs.google.com/document/d/1WbQwz0FFGNocsxlgWkvwqYG-txHmAqKeUHHIVhDa9Wk/mobilebasic">Help</a>
+  </footer>
+</main>
+<script>
+  MovieRecsStore.whenKnown(function (store) {
+    document.getElementById("get").href = store.url;
+    document.getElementById("beta").hidden = store.isLive;
+  });
+</script>
+</body>
+</html>
